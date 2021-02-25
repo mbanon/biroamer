@@ -257,12 +257,15 @@ def get_entities(sentence):
 def main():
     for i in sys.stdin:
         fields = i.strip().split("\t")
-        if len(fields) < 5:
+        if len(fields) < 8:
             sys.stderr.write('Error with line: '+ str(fields))
             continue
-        outent = get_entities(fields[0])
-        outsrc, outtrg = align(outent, fields[1], fields[2], fields[3], fields[4], reverse_alignment(fields[4]))
-        sys.stdout.write(f"{outsrc}\t{outtrg}\n")
+        outent = get_entities(fields[2])
+        outsrc, outtrg = align(outent, fields[3], fields[5], fields[6], fields[7], reverse_alignment(fields[7]))
+        #fields[3] = outsrc
+        #fields[4] = outtrg
+        #sys.stdout.write(f"{outsrc}\t{outtrg}\n")
+        sys.stdout.write(fields[0]+"\t"+fields[1]+"\t"+outsrc+"\t"+outtrg+"\t"+fields[4]+"\n")
 
 
 if __name__ == "__main__":
